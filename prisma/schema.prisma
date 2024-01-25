@@ -15,27 +15,11 @@ enum Role {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
+  id    String @id @default(uuid())
+  name  String
+  email String @unique
 
   @@map("users")
-}
-
-model Pet {
-  id              String  @id @default(uuid())
-  name            String
-  type            String
-  breed           String
-  age             Int
-  city            String
-  characteristics String?
-
-  org    Org    @relation(fields: [org_id], references: [id])
-  org_id String
-
-  @@map("pets")
 }
 
 model Org {
@@ -52,4 +36,22 @@ model Org {
   pets Pet[] // Relacionamento inverso com Pet
 
   @@map("orgs")
+}
+
+model Pet {
+  id     String @id @default(uuid())
+  name   String
+  description String
+  age    Int
+  size   String
+  type   String
+  energy Int
+  level_of_independence String
+  city                  String
+
+  org    Org    @relation(fields: [org_id], references: [id])
+  org_id String
+  
+
+  @@map("pets")
 }
