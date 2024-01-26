@@ -4,8 +4,8 @@ Find A Friend API.
 
 ### Regras da aplicação (Requisitos funcionais)
 
-- [] Deve ser possível se cadastrar como uma ORG
-- [] Deve ser possível realizar login como uma ORG
+- [x] Deve ser possível se cadastrar como uma ORG
+- [x] Deve ser possível realizar login como uma ORG
 
 - [] Deve ser possível cadastrar um pet
 - [] Deve ser possível visualizar detalhes de um pet para adoção
@@ -24,6 +24,6 @@ Find A Friend API.
 
 ## RNFs (Requisitos não-funcionais)
 
-- [] A senha  precisa estar criptografada;
+- [x] A senha  precisa estar criptografada;
 - [] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
 - [] Uma ORG deve ser identificado por um JWT (JSON Web Token);
