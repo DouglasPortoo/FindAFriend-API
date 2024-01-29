@@ -14,7 +14,7 @@ describe("Register Use Case", () => {
     sut = new RegisterUsecase(orgRepository)
   })
 
-  it("should to register", async () => {
+  it("should to register a Org", async () => {
     const { org } = await sut.execute({
       name: "AUmigos",
       address: "Rua numero 0",
@@ -32,7 +32,7 @@ describe("Register Use Case", () => {
       address: "Rua numero 0",
       email: "aumigos.org@aumigos.com",
       password: "123456",
-      whatsapp: "11 9 7070-7070"
+      whatsapp: "11 9 7070-7070",
     })
 
     const isPasswordCorrectlyHashed = await compare("123456", org.password)

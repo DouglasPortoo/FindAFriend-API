@@ -33,7 +33,7 @@ export class RegisterUsecase {
 
     const password_hash = await hash(password, 6)
 
-    const org = await this.orgRepository.create({ address, email, name, password: password_hash, whatsapp, })
+    const org = await this.orgRepository.create({ address, email, name, password: password_hash, whatsapp })
 
     return { org }
   }

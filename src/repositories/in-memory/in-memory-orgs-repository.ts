@@ -7,14 +7,15 @@ export class InMemoryOrgsRepository implements OrgRepository{
   
   items : Org[] = []
 
-  async create(data:Prisma.OrgCreateInput){
+  async create(data:Prisma.OrgUncheckedCreateInput){
     const org = {
-    id: randomUUID(),
-    name: data.name,
-    address: data.address,
-    whatsapp: data.whatsapp,
-    email: data.email,
-    password: data.password,
+      id: randomUUID(),
+      name: data.name,
+      address: data.address,
+      whatsapp: data.whatsapp,
+      email: data.email,
+      password: data.password,
+      
     }
 
     this.items.push(org)
