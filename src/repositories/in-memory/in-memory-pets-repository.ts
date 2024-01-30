@@ -1,15 +1,17 @@
 import { Prisma, Pet } from "@prisma/client";
 import { PetRepository } from "../pet-repository";
 import { randomUUID } from "crypto";
+import { InvalidCredentialsError } from "../../use-cases/errors/invalid-credentials-error";
 
 export class InMemoryPetsRepository implements PetRepository {
+
 
   item: Pet[] = []
 
   async create(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
 
     const pet = {
-      id: randomUUID(),
+      id: data.id ?? randomUUID(),
       name: data.name,
       description: data.description,
       age: data.age,
@@ -22,6 +24,16 @@ export class InMemoryPetsRepository implements PetRepository {
     }
 
     this.item.push(pet);
+    return pet;
+  }
+
+  async findbyid(id: string) {
+    const pet = this.item.find(item => item.id === id);
+
+    if(!pet){
+      throw new InvalidCredentialsError()
+    }
+
     return pet;
   }
 }
