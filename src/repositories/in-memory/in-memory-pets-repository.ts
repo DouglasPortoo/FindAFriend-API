@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { InvalidCredentialsError } from "../../use-cases/errors/invalid-credentials-error";
 
 export class InMemoryPetsRepository implements PetRepository {
+  
 
 
   item: Pet[] = []
@@ -35,5 +36,15 @@ export class InMemoryPetsRepository implements PetRepository {
     }
 
     return pet;
+  }
+
+  async findByCity(city: string) {
+    const petCity = this.item.filter(item => item.city === city);
+
+    if(!petCity){
+      return []
+    }
+
+    return petCity;
   }
 }
