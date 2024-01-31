@@ -5,8 +5,6 @@ import { InvalidCredentialsError } from "../../use-cases/errors/invalid-credenti
 
 export class InMemoryPetsRepository implements PetRepository {
   
-
-
   item: Pet[] = []
 
   async create(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
@@ -46,5 +44,15 @@ export class InMemoryPetsRepository implements PetRepository {
     }
 
     return petCity;
+  }
+
+  async filterByType(type: string, characteristics: keyof Pet) {
+    const petType = this.item.filter((pet: Pet) => pet[characteristics] === type);
+
+    if (!petType) {
+      return [];
+    }
+
+    return petType;
   }
 }

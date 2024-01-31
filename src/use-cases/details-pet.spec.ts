@@ -1,19 +1,18 @@
-
 import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryPetsRepository } from "../repositories/in-memory/in-memory-pets-repository";
-import { cityPetsUseCase } from "./city-pets";
+import { filterByTypeUseCase } from "./filter-pets";
+
 
 let petRepository: InMemoryPetsRepository
-let sut: cityPetsUseCase
+let sut: filterByTypeUseCase
 
-describe("City Pets Use Case", () => {
-
-  beforeEach(() => {
+describe("Details Pet Use Case", () => {
+  beforeEach(()=>{
     petRepository = new InMemoryPetsRepository()
-    sut = new cityPetsUseCase(petRepository)
+    sut = new filterByTypeUseCase(petRepository)
   })
 
-  it("should be able to to list all pets available for adoption in a city", async () => {
+  it("should be possible to filter pets by their characteristics", async()=>{
     await petRepository.create({
       name: "Bob",
       description: "Bob is a very nice dog",
@@ -62,27 +61,10 @@ describe("City Pets Use Case", () => {
       org_id: "123"
     })
 
-    await petRepository.create({
-      name: "Eddie",
-      description: "Eddie is a cheerful parrot",
-      age: 2,
-      size: "S",
-      type: "Parrot",
-      energy: 3,
-      city: "Rio de Janeiro",
-      level_of_independence: "Medium",
-      org_id: "123"
-    })
+    const {pet} = await sut.execute({caracteristics:"level_of_independence",type:"Medium"})
 
-    const cities = ["São Paulo", "Rio de Janeiro"];
-    const randomCity = cities[Math.floor(Math.random() * cities.length)];
-
-    const pets = await sut.execute({
-      city: randomCity
-    });
-
-    expect(pets).toEqual(expect.any(Object));
-    expect(pets.pet[0].city).toEqual(randomCity);
-    
+    expect(pet).toEqual(expect.any(Array));  
+    expect(pet).toHaveLength(1);
+    expect(pet[0].level_of_independence).toBe("Medium");
   })
 })
