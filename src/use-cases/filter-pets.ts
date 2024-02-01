@@ -1,9 +1,10 @@
 import { Pet } from "@prisma/client";
 import { PetRepository } from "../repositories/pet-repository";
 
-interface filterByTypeUseCaseRequest {
-  type: string
-  caracteristics: string
+export interface filterByTypeUseCaseRequest {
+  city: string
+  type?: string
+  caracteristics?: keyof Pet
 }
 
 interface filterByTypeUseCaseResponse {
@@ -17,8 +18,8 @@ export class filterByTypeUseCase {
     this.petRepository = petRepository;
   }
 
-  async execute({type,caracteristics}:filterByTypeUseCaseRequest):Promise<filterByTypeUseCaseResponse>{
-    const pet = await this.petRepository.filterByType(type,caracteristics);
+  async execute({city, type, caracteristics}:filterByTypeUseCaseRequest):Promise<filterByTypeUseCaseResponse>{
+    const pet = await this.petRepository.filterByType(city, type, caracteristics);
     return { pet };
   }
 }

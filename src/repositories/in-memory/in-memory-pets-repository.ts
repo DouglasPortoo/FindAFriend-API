@@ -37,22 +37,16 @@ export class InMemoryPetsRepository implements PetRepository {
   }
 
   async findByCity(city: string) {
-    const petCity = this.item.filter(item => item.city === city);
-
-    if(!petCity){
-      return []
-    }
-
-    return petCity;
+    return this.item.filter(item => item.city === city);
   }
 
-  async filterByType(type: string, characteristics: keyof Pet) {
-    const petType = this.item.filter((pet: Pet) => pet[characteristics] === type);
-
-    if (!petType) {
-      return [];
-    }
-
-    return petType;
-  }
+  async filterByType(city: string, type?: string, caracteristics?: keyof Pet) {
+    return this.item.filter((pet: Pet) => {
+        if (type && caracteristics) {
+            return pet[caracteristics] === type && pet.city === city;
+        } else {
+            return pet.city === city;
+        }
+    });
+}
 }
