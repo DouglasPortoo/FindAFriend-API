@@ -63,8 +63,6 @@ describe("Filter Pets Use Case", () => {
 
     const {pet} = await sut.execute({city:"Rio de Janeiro", type:"High", caracteristics:"level_of_independence"})
 
-    console.log(pet)
-
     expect(pet).toEqual(expect.any(Array));  
   })
 })
